@@ -1,0 +1,1733 @@
+/*
+  =========================
+  1. Variabel dan tema warna
+  =========================
+  Variabel CSS ditulis sekali di :root lalu dipakai ulang dengan var(...).
+  Palet utama menggunakan charcoal untuk dasar dan oxblood untuk seluruh aksen.
+  Dengan cara ini, warna dapat diganti dari satu tempat.
+*/
+:root {
+  --bg: #111315;
+  --surface: #1b1f23;
+  --ink: #f4eeee;
+  --muted: #bba8a8;
+  --line: #3f3031;
+  --accent: #7f1d1d;
+  --accent-strong: #b54242;
+  --accent-ink: #111315;
+  --support: #963b3b;
+  --support-soft: #432326;
+  --highlight: #963b3b;
+  --highlight-soft: #432326;
+  --heading: #f4eeee;
+  --card-bg: #080909;
+  --card-border: #d8d8d8;
+  --card-ink: #f4eeee;
+  color-scheme: dark;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Tema gelap mengikuti nuansa charcoal yang sama pada preferensi sistem. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111315;
+    --surface: #1b1f23;
+    --ink: #f4eeee;
+    --muted: #bba8a8;
+    --line: #3f3031;
+    --accent: #963b3b;
+    --accent-strong: #d47777;
+    --accent-ink: #111315;
+    --support: #b85c5c;
+    --support-soft: #4a292c;
+    --highlight: #b85c5c;
+    --highlight-soft: #4a292c;
+    --heading: #f4eeee;
+    --card-bg: #080909;
+    --card-border: #d8d8d8;
+    --card-ink: #f4eeee;
+    color-scheme: dark;
+  }
+}
+
+/* Class ini dipasang JavaScript ketika pengguna memilih tema gelap. */
+:root[data-theme="dark"] {
+  --bg: #111315;
+  --surface: #1b1f23;
+  --ink: #f4eeee;
+  --muted: #bba8a8;
+  --line: #3f3031;
+  --accent: #963b3b;
+  --accent-strong: #d47777;
+  --accent-ink: #111315;
+  --support: #b85c5c;
+  --support-soft: #4a292c;
+  --highlight: #b85c5c;
+  --highlight-soft: #4a292c;
+  --heading: #f4eeee;
+  --card-bg: #080909;
+  --card-border: #d8d8d8;
+  --card-ink: #f4eeee;
+  color-scheme: dark;
+}
+
+/* Tema putih dipilih JavaScript saat pengguna menekan tombol Theme. */
+:root[data-theme="light"] {
+  --bg: #f7f3f2;
+  --surface: #ffffff;
+  --ink: #24191a;
+  --muted: #776567;
+  --line: #e3d6d5;
+  --accent: #7f1d1d;
+  --accent-strong: #a94747;
+  --accent-ink: #ffffff;
+  --support: #963b3b;
+  --support-soft: #f0dddd;
+  --highlight: #963b3b;
+  --highlight-soft: #f0dddd;
+  --heading: #7f1d1d;
+  --card-bg: #080909;
+  --card-border: #d8d8d8;
+  --card-ink: #f4eeee;
+  color-scheme: light;
+}
+
+/*
+  =========================
+  2. Reset dan elemen dasar
+  =========================
+*/
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 17px/1.65 "Roboto", system-ui, sans-serif;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  font-family: "Roboto", Arial, sans-serif;
+  line-height: 1.1;
+}
+
+a {
+  color: inherit;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--accent-strong);
+  outline-offset: 3px;
+}
+
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/*
+  =========================
+  3. Navigasi normal
+  =========================
+  Dalam kondisi awal, navigasi menampilkan teks agar pengguna langsung
+  memahami fungsi setiap link.
+*/
+.site-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px 0;
+  color: var(--muted);
+  font-size: 15px;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.site-nav a,
+.site-nav button {
+  color: inherit;
+}
+
+.site-nav a {
+  text-decoration: none;
+}
+
+.site-nav a:hover,
+.site-nav a.active {
+  color: var(--ink);
+}
+
+.site-nav a.active {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+/* Ikon disembunyikan ketika navigasi masih berbentuk teks. */
+.site-nav svg {
+  display: none;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+#theme-toggle {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/*
+  =========================
+  4. Navigasi saat halaman digulir
+  =========================
+  JavaScript menambahkan .is-compact. Position fixed membuat rail tetap
+  menempel di kiri layar. Nama menu disimpan di dalam span agar dapat
+  dimunculkan sebagai label ketika pointer berada di atas ikon.
+*/
+.site-nav.is-compact {
+  position: fixed;
+  z-index: 10;
+  top: 50%;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--card-bg), var(--support-soft));
+  box-shadow: 0 12px 30px rgb(0 0 0 / 0.12);
+  transform: translateY(-50%);
+  transition: opacity 0.25s ease;
+  animation: nav-fade-in 0.25s ease both;
+}
+
+/* Navbar compact hanya muncul melalui opacity, bukan pergerakan dari bawah. */
+@keyframes nav-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.site-nav.is-compact a,
+.site-nav.is-compact button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.site-nav.is-compact a:hover,
+.site-nav.is-compact a.active,
+.site-nav.is-compact button:hover {
+  background: var(--bg);
+  color: var(--accent);
+}
+
+.site-nav.is-compact svg {
+  display: block;
+}
+
+.site-nav.is-compact a span,
+.site-nav.is-compact button span {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 10px);
+  width: max-content;
+  height: auto;
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  box-shadow: 0 6px 16px rgb(0 0 0 / 0.12);
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.3;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-4px, -50%);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+}
+
+.site-nav.is-compact a.tooltip-visible span,
+.site-nav.is-compact button.tooltip-visible span {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+/*
+  =========================
+  5. Hero dan tombol
+  =========================
+*/
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+  align-items: center;
+  gap: 56px;
+  padding: 56px 0 72px;
+}
+
+.hero-content {
+  min-width: 0;
+}
+
+.hero h1 {
+  font-size: clamp(44px, 9vw, 92px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.hero p {
+  max-width: 60ch;
+  margin: 28px 0;
+  font-size: 19px;
+}
+
+.hero-photo {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: transparent;
+}
+
+.hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 16px;
+  -webkit-mask-image: radial-gradient(
+    ellipse 76% 78% at center,
+    #000 54%,
+    rgb(0 0 0 / 0.92) 68%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 76% 78% at center,
+    #000 54%,
+    rgb(0 0 0 / 0.92) 68%,
+    transparent 100%
+  );
+}
+
+.screenshot-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 22px;
+  border: 2px solid var(--accent);
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.btn.primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+/*
+  =========================
+  6. Section, pengalaman, dan proyek
+  =========================
+*/
+section {
+  padding: 56px 0;
+  border-top: 1px solid var(--line);
+}
+
+#about {
+  text-align: center;
+}
+
+#about .text {
+  max-width: 720px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+h2 {
+  margin-bottom: 8px;
+  color: var(--heading);
+  font-size: clamp(28px, 5vw, 40px);
+  font-weight: 700;
+}
+
+.gloss {
+  margin: 0 0 32px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.text {
+  max-width: 62ch;
+}
+
+.work-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.78fr) minmax(0, 1.22fr);
+  align-items: start;
+  gap: clamp(40px, 7vw, 96px);
+  margin-top: 40px;
+}
+
+.experience-content {
+  min-width: 0;
+}
+
+#work > h2,
+#work > .gloss {
+  text-align: center;
+}
+
+.experience-visual {
+  position: sticky;
+  top: 40px;
+  align-self: start;
+  justify-self: center;
+  margin: 0;
+  width: 100%;
+}
+
+.experience-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 0.62 / 1;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.experience-frame::after {
+  position: absolute;
+  right: 8%;
+  bottom: -3%;
+  left: 8%;
+  height: 24%;
+  background: radial-gradient(
+    ellipse at center,
+    rgb(232 232 232 / 0.34) 0%,
+    rgb(190 190 190 / 0.16) 38%,
+    transparent 76%
+  );
+  content: "";
+  filter: blur(14px);
+  pointer-events: none;
+  z-index: 6;
+}
+
+.photo-tile {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 82%;
+  aspect-ratio: 2.05 / 1;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--card-ink);
+  cursor: pointer;
+  box-shadow: none;
+  filter: none;
+  overflow: hidden;
+  animation: photo-fade-in 0.7s ease both;
+  transition: transform 0.3s ease, z-index 0.3s ease;
+}
+
+.photo-tile-one {
+  animation-delay: 0.1s;
+}
+
+.photo-tile-two {
+  animation-delay: 0.35s;
+}
+
+.photo-tile-three {
+  animation-delay: 0.6s;
+}
+
+.photo-tile-four {
+  animation-delay: 0.85s;
+}
+
+.photo-tile:hover {
+  z-index: 5;
+  transform: translateY(-6px) rotate(0deg) scale(1.03);
+}
+
+.photo-tile:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.photo-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-hover {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgb(255 255 255 / 0.10);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.photo-tile:hover .photo-hover,
+.photo-tile:focus-visible .photo-hover {
+  opacity: 1;
+}
+
+.photo-hover svg {
+  width: 38px;
+  height: 38px;
+  fill: none;
+  stroke: #fff;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+}
+
+@keyframes photo-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.photo-tile-one {
+  top: 0;
+  left: 2%;
+  z-index: 4;
+  transform: rotate(-3deg);
+}
+
+.photo-tile-two {
+  top: 22%;
+  right: 0;
+  z-index: 3;
+  transform: rotate(2deg);
+}
+
+.photo-tile-three {
+  top: 45%;
+  left: 0;
+  z-index: 2;
+  transform: rotate(-2deg);
+}
+
+.photo-tile-four {
+  top: 68%;
+  right: 2%;
+  z-index: 1;
+  transform: rotate(3deg);
+}
+
+.photo-tile-five {
+  top: 82%;
+  left: 2%;
+  z-index: 0;
+  transform: rotate(-3deg);
+}
+
+.photo-modal {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  width: min(100%, 480px);
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  background: rgb(8 9 9 / 0.96);
+  box-shadow: 0 20px 40px rgb(0 0 0 / 0.3);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) scale(0.96);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.photo-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) scale(1);
+}
+
+.photo-modal-image {
+  width: calc(100% - 32px);
+  height: calc(100% - 32px);
+  border-radius: 6px;
+  object-fit: contain;
+}
+
+.photo-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgb(255 255 255 / 0.45);
+  border-radius: 50%;
+  background: rgb(0 0 0 / 0.6);
+  color: #fff;
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.photo-modal-close:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.experience-visual figcaption {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+.job {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 8px 28px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.timeline {
+  position: relative;
+  display: grid;
+  gap: 28px;
+  padding-left: 34px;
+}
+
+.timeline::before {
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 8px;
+  width: 1px;
+  background: var(--line);
+  content: "";
+}
+
+.timeline-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 8px 28px;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.timeline-item::before {
+  position: absolute;
+  top: 7px;
+  left: -30px;
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--accent-strong);
+  border-radius: 50%;
+  background: var(--bg);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
+  content: "";
+  transform: scale(0.5);
+  transition: background 0.3s ease, transform 0.4s ease;
+}
+
+.timeline-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.timeline-item.is-visible::before {
+  background: var(--accent);
+  transform: scale(1);
+}
+
+.timeline .job {
+  display: block;
+  padding: 0;
+  border-bottom: 0;
+}
+
+.job:last-child {
+  border: 0;
+}
+
+.when,
+.org {
+  color: var(--muted);
+}
+
+.when {
+  font-size: 15px;
+}
+
+.job h3 {
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.org {
+  margin: 2px 0 8px;
+}
+
+.job p {
+  max-width: 62ch;
+  margin: 0;
+}
+
+.experience-description-full[hidden],
+.experience-description-preview-wrapper[hidden] {
+  display: none;
+}
+
+.experience-description-preview-wrapper {
+  position: relative;
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.experience-description-fade {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1.8em;
+  background: linear-gradient(to bottom, rgb(17 19 21 / 0) 0%, var(--bg) 92%);
+  pointer-events: none;
+}
+
+.read-more {
+  display: block;
+  margin-top: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--accent-strong);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.read-more:hover {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.project-card {
+  overflow: hidden;
+  border: 0;
+  border-radius: 10px;
+  background: var(--card-bg);
+  color: var(--card-ink);
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgb(0 0 0 / 0.08);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.project-card:hover {
+  box-shadow: 0 14px 28px rgb(0 0 0 / 0.18);
+  transform: translateY(-4px);
+}
+
+.project-image {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 220px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: #111315;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.project-photo-carousel,
+.project-photo-slide {
+  width: 100%;
+  height: 100%;
+}
+
+.project-photo-carousel {
+  position: relative;
+}
+
+.project-photo-slide {
+  display: none;
+}
+
+.project-photo-slide.is-active {
+  display: block;
+  animation: screenshot-fade 0.35s ease;
+}
+
+.project-modal-gallery {
+  position: relative;
+  height: 100%;
+  min-height: 340px;
+  align-self: stretch;
+  background: var(--card-bg);
+}
+
+.project-modal-gallery .project-modal-image {
+  display: block;
+  height: 100%;
+  min-height: 340px;
+  object-fit: contain;
+}
+
+.project-modal-gallery-button {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgb(255 255 255 / 0.45);
+  border-radius: 50%;
+  background: rgb(0 0 0 / 0.6);
+  color: #fff;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.project-modal-gallery-button.previous {
+  left: 12px;
+}
+
+.project-modal-gallery-button.next {
+  right: 12px;
+}
+
+.project-modal-gallery-button[hidden],
+.project-modal-gallery-dots[hidden] {
+  display: none;
+}
+
+.project-modal-gallery-button:hover {
+  background: var(--accent);
+}
+
+.project-modal-gallery-dots {
+  position: absolute;
+  z-index: 2;
+  bottom: 14px;
+  left: 50%;
+  display: flex;
+  gap: 6px;
+  transform: translateX(-50%);
+}
+
+.project-modal-gallery-dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.project-modal-gallery-dot.is-active {
+  background: var(--accent-strong);
+}
+
+.project-card:hover .project-image img,
+.project-card:focus-visible .project-image img {
+  transform: scale(1.04);
+}
+
+.project-image-hover {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgb(255 255 255 / 0.10);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.project-card:hover .project-image-hover,
+.project-card:focus-visible .project-image-hover {
+  opacity: 1;
+}
+
+.project-card-content {
+  min-height: 150px;
+  padding: 20px;
+}
+
+.project-card h3 {
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.project-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.project-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgb(0 0 0 / 0.72);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.project-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.project-modal-panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(260px, 0.95fr) minmax(0, 1.05fr);
+  width: min(900px, 100%);
+  max-height: min(720px, 90vh);
+  overflow: auto;
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  background: var(--card-bg);
+  color: var(--card-ink);
+  box-shadow: 0 24px 60px rgb(0 0 0 / 0.35);
+  transform: translateY(12px) scale(0.98);
+  transition: transform 0.25s ease;
+}
+
+.project-modal.is-open .project-modal-panel {
+  transform: translateY(0) scale(1);
+}
+
+.project-modal-image {
+  width: 100%;
+  height: 100%;
+  min-height: 340px;
+  object-fit: cover;
+}
+
+.project-modal-content {
+  padding: 38px 32px 32px;
+}
+
+.project-modal-content h3 {
+  margin-bottom: 12px;
+  font-size: 32px;
+}
+
+.project-modal-content h4 {
+  margin: 24px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.project-modal-summary {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+.recognition-modal-year {
+  margin: 0 0 8px;
+  color: var(--highlight);
+  font-weight: 700;
+}
+
+.recognition-modal-institution {
+  margin: 0 0 18px;
+  color: var(--muted);
+}
+
+.project-modal-description {
+  color: var(--muted);
+}
+
+.project-modal-link {
+  margin-top: 26px;
+}
+
+.project-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgb(255 255 255 / 0.45);
+  border-radius: 50%;
+  background: rgb(0 0 0 / 0.6);
+  color: #fff;
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+}
+
+@media (max-width: 900px) and (min-width: 641px) {
+  .project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .recognition-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/*
+  =========================
+  7. Statistik, tag, dan grid
+  =========================
+*/
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  margin: 22px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stats b {
+  display: block;
+  font: 800 30px "Roboto", Arial, sans-serif;
+}
+
+.stats span {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tags li {
+  padding: 4px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: 15px;
+}
+
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.skill-card {
+  min-height: 250px;
+  padding: 24px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--card-bg);
+  color: var(--card-ink);
+  box-shadow: 0 8px 20px rgb(0 0 0 / 0.08);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.skill-card:hover {
+  box-shadow: 0 14px 28px rgb(0 0 0 / 0.18);
+  transform: translateY(-4px);
+}
+
+.skill-card-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.skill-card h3 {
+  margin: 6px 0 0;
+  font-size: 23px;
+}
+
+.skill-card p {
+  max-width: 46ch;
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.skill-status {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.skill-icon {
+  display: grid;
+  place-items: center;
+  min-width: 38px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--accent-strong);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.skill-card .tags {
+  margin-top: 22px;
+}
+
+.skill-card-learning {
+  background: linear-gradient(135deg, var(--card-bg), var(--support-soft));
+}
+
+.skill-card-learning .skill-status,
+.skill-card-learning h3 {
+  color: var(--support);
+}
+
+.skill-card-learning .skill-icon {
+  border-color: var(--support);
+  color: var(--support);
+}
+
+.skill-card-learning .tags li {
+  border-color: var(--support);
+  background: var(--support-soft);
+}
+
+/* Oxblood juga menandai area yang sedang dipelajari. */
+.support-group h3 {
+  color: var(--support);
+}
+
+.support-group .tags li {
+  border-color: var(--support);
+  background: var(--support-soft);
+}
+
+/* Oxblood menandai bagian Recognition tanpa mendominasi seluruh halaman. */
+.highlight-section h2,
+.highlight-section h3 {
+  color: var(--heading);
+}
+
+.recognition-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin-bottom: 36px;
+}
+
+.recognition-card {
+  position: relative;
+  min-height: 330px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 10px;
+  background: var(--card-bg);
+  box-shadow: 0 8px 20px rgb(0 0 0 / 0.08);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recognition-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgb(0 0 0 / 0.18);
+}
+
+.recognition-photo {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.35s ease, opacity 0.3s ease;
+}
+
+.recognition-photo::after {
+  position: absolute;
+  inset: 0;
+  background: rgb(255 255 255 / 0.05);
+  content: "";
+}
+
+.recognition-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recognition-card-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 330px;
+  padding: 18px 18px 16px;
+  background: linear-gradient(
+    180deg,
+    rgb(0 0 0 / 0) 0%,
+    rgb(10 10 10 / 0.76) 58%,
+    rgb(10 10 10 / 0.95) 100%
+  );
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.recognition-type {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: var(--highlight);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.recognition-card h3 {
+  margin-bottom: 10px;
+  font-size: 22px;
+  color: #fff;
+}
+
+.recognition-card p {
+  margin: 0;
+  color: #f1f1f1;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.recognition-card:hover .recognition-card-body {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.recognition-card:hover .recognition-photo {
+  transform: scale(1.04);
+}
+
+.recognition-card:focus-visible {
+  outline: 3px solid var(--accent-strong);
+  outline-offset: 4px;
+}
+
+.recognition-layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.72fr) minmax(0, 1.28fr);
+  align-items: center;
+  gap: clamp(40px, 7vw, 96px);
+  min-height: 360px;
+  margin: 48px 0 72px;
+}
+
+.recognition-layout-reverse .recognition-copy {
+  order: 2;
+}
+
+.recognition-layout-reverse .recognition-visual {
+  order: 1;
+}
+
+.recognition-copy h3 {
+  margin: 8px 0 14px;
+  color: var(--heading);
+  font-size: clamp(30px, 5vw, 44px);
+}
+
+.recognition-copy p {
+  max-width: 34ch;
+  color: var(--muted);
+}
+
+.recognition-visual {
+  display: grid;
+  grid-template-columns: minmax(110px, 0.55fr) minmax(0, 1.45fr);
+  gap: 18px;
+  height: 360px;
+  min-width: 0;
+  min-height: 360px;
+}
+
+.recognition-stack {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 12px;
+  height: 360px;
+  min-height: 0;
+}
+
+.patent-visual {
+  display: block;
+}
+
+.patent-visual .recognition-stack {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: 1fr;
+  height: 360px;
+}
+
+.recognition-photo-card {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--card-bg);
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgb(0 0 0 / 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recognition-photo-card::after {
+  position: absolute;
+  inset: 0;
+  background: rgb(255 255 255 / 0.05);
+  content: "";
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.recognition-photo-card:hover,
+.recognition-photo-card:focus-visible {
+  box-shadow: 0 14px 28px rgb(0 0 0 / 0.18);
+  transform: translateY(-3px);
+}
+
+.recognition-photo-card:hover::after,
+.recognition-photo-card:focus-visible::after {
+  opacity: 1;
+}
+
+.recognition-photo-card:focus-visible {
+  outline: 3px solid var(--accent-strong);
+  outline-offset: 3px;
+}
+
+.recognition-photo-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  background: var(--card-bg);
+  object-fit: contain;
+}
+
+.recognition-modal .project-modal-image {
+  background: var(--card-bg);
+  object-fit: contain;
+}
+
+.recognition-carousel {
+  position: relative;
+  height: 360px;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.recognition-carousel .recognition-photo-card {
+  display: none;
+  width: 100%;
+  height: 100%;
+}
+
+.recognition-carousel .recognition-photo-card.is-active {
+  display: block;
+  animation: screenshot-fade 0.35s ease;
+}
+
+.recognition-carousel-button {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgb(255 255 255 / 0.45);
+  border-radius: 50%;
+  background: rgb(0 0 0 / 0.6);
+  color: #fff;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.recognition-carousel-button.previous {
+  left: 12px;
+}
+
+.recognition-carousel-button.next {
+  right: 12px;
+}
+
+.recognition-carousel-button:hover {
+  background: var(--accent);
+}
+
+.recognition-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgb(0 0 0 / 0.72);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.recognition-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.recognition-modal .project-modal-panel {
+  transform: translateY(12px) scale(0.98);
+  transition: transform 0.25s ease;
+}
+
+.recognition-modal.is-open .project-modal-panel {
+  transform: translateY(0) scale(1);
+}
+
+.highlight-section small {
+  color: var(--highlight);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 32px;
+}
+
+.grid h3 {
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.grid ul:not(.tags) {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.grid li {
+  margin-bottom: 8px;
+}
+
+.grid .tags li {
+  margin-bottom: 0;
+}
+
+.grid small {
+  color: var(--muted);
+}
+
+/*
+  =========================
+  8. Footer dan responsif
+  =========================
+*/
+footer {
+  padding: 56px 0 64px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+
+footer h2 {
+  font-size: clamp(30px, 6vw, 52px);
+}
+
+footer p {
+  color: var(--muted);
+}
+
+.contact-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-width: 132px;
+  padding: 12px 22px;
+  border: 0;
+  border-radius: 999px;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 8px 18px rgb(0 0 0 / 0.18);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.contact-btn:hover {
+  box-shadow: 0 12px 24px rgb(0 0 0 / 0.24);
+  filter: brightness(1.08);
+  transform: translateY(-3px);
+}
+
+.contact-btn:focus-visible {
+  outline: 3px solid var(--accent-strong);
+  outline-offset: 3px;
+}
+
+.contact-btn svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.contact-btn .contact-icon-fill {
+  fill: currentColor;
+  stroke: none;
+}
+
+.contact-email {
+  background: linear-gradient(120deg, #4285f4 0%, #fbbc05 52%, #ea4335 100%);
+}
+
+.contact-linkedin {
+  background: #0a66c2;
+}
+
+.contact-instagram {
+  background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 52%, #fcb045 100%);
+}
+
+/* Pada layar kecil, kolom pengalaman menjadi satu kolom. */
+@media (max-width: 640px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .hero-photo {
+    max-width: 320px;
+    justify-self: center;
+  }
+
+  .timeline {
+    padding-left: 26px;
+  }
+
+  .work-layout {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .experience-visual {
+    position: static;
+    width: min(100%, 360px);
+    justify-self: center;
+  }
+
+  .timeline-item {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .timeline-item::before {
+    left: -22px;
+  }
+
+  .job {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding-top: 32px;
+  }
+
+  .site-nav.is-compact {
+    left: 10px;
+  }
+
+  .site-nav.is-compact a,
+  .site-nav.is-compact button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skill-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .recognition-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .recognition-layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    min-height: 0;
+    margin: 40px 0 56px;
+  }
+
+  .recognition-layout-reverse .recognition-copy,
+  .recognition-layout-reverse .recognition-visual {
+    order: initial;
+  }
+
+  .recognition-visual {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 0;
+  }
+
+  .recognition-stack {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: 130px;
+    height: 130px;
+  }
+
+  .patent-visual .recognition-stack {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: 1fr;
+    height: 260px;
+  }
+
+  .recognition-carousel {
+    height: 260px;
+    min-height: 260px;
+  }
+
+  .project-modal {
+    padding: 14px;
+  }
+
+  .recognition-modal {
+    padding: 14px;
+  }
+
+  .project-modal-panel {
+    grid-template-columns: 1fr;
+    max-height: 94vh;
+  }
+
+  .project-modal-gallery .project-modal-image {
+    min-height: 220px;
+  }
+
+  .project-modal-image {
+    height: 220px;
+    min-height: 0;
+  }
+
+  .project-modal-content {
+    padding: 26px 22px 24px;
+  }
+}
+
+/* Pengguna yang mematikan animasi tetap mendapat pengalaman yang nyaman. */
+@media (prefers-reduced-motion: reduce) {
+  html,
+  .timeline-item,
+  .photo-tile,
+  .photo-modal,
+  .project-modal,
+  .project-modal-panel {
+    scroll-behavior: auto;
+    animation: none;
+    transition: none;
+  }
+}

@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Metadata membantu browser menampilkan halaman dengan benar di berbagai perangkat. -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Dicky Samudra Alamsyah — Backend Developer</title>
+
+  <!-- Roboto digunakan secara konsisten untuk judul dan teks isi portofolio. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;800&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="wrap">
+    <!--
+      Navigasi berisi link menuju setiap bagian halaman.
+      Saat halaman digulir, JavaScript menambahkan class "is-compact".
+      CSS kemudian mengubah navigasi teks ini menjadi rail ikon di kiri.
+    -->
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="#about" title="About">
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M12 3a7 7 0 0 0-4 12.74V19h8v-3.26A7 7 0 0 0 12 3Zm-2 18h4" />
+        </svg>
+        <span>Tentang</span>
+      </a>
+
+      <a href="#work" title="Experience">
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M4 7h16v13H4zM8 7V5h8v2M8 12h8M8 16h5" />
+        </svg>
+        <span>Pengalaman</span>
+      </a>
+
+      <a href="#projects" title="Projects">
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path d="m12 3 8 4-8 4-8-4 8-4Zm-8 9 8 4 8-4M4 17l8 4 8-4" />
+        </svg>
+        <span>Projects</span>
+      </a>
+
+      <a href="#skills" title="Skills">
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M4 19V5m0 14h16M8 16v-5m4 5V7m4 9v-8" />
+        </svg>
+        <span>Keterampilan</span>
+      </a>
+
+      <a href="#recognition" title="Recognition">
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path d="m12 3 2.2 4.45 4.91.71-3.56 3.47.84 4.9L12 14.22l-4.39 2.31.84-4.9-3.56-3.47 4.91-.71L12 3Z" />
+        </svg>
+        <span>Lainnya</span>
+      </a>
+
+      <a href="#contact" title="Contact">
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M4 5h16v12H7l-3 3V5Zm4 5h8M8 13h5" />
+        </svg>
+        <span>Kontak</span>
+      </a>
+
+      <!-- Tombol ini dikendalikan JavaScript untuk mengganti tema terang/gelap. -->
+      <button id="theme-toggle" type="button" aria-label="Toggle light and dark theme" title="Toggle theme">
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M20 15.5A8.5 8.5 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5Z" />
+        </svg>
+        <span>Theme</span>
+      </button>
+    </nav>
+
+    <!-- Hero adalah bagian pembuka yang langsung dilihat pengunjung. -->
+    <header class="hero">
+      <div class="hero-content">
+        <h1>Dicky Samudra Alamsyah</h1>
+        <p>
+          Saya backend developer yang membangun teknologi untuk pendidikan, termasuk Si Jerman, platform belajar bahasa Jerman berbasis AI. Saat ini saya memperdalam DevOps lewat Docker dan Google Cloud agar bisa membawa proyek dari kode hingga deployment.
+        </p>
+
+        <div class="btns">
+          <a class="btn primary" href="https://www.sijerman.com" target="_blank" rel="noopener">
+            Visit Si Jerman
+          </a>
+          <a class="btn" href="https://www.linkedin.com/in/dicky-samudra-alamsyah" target="_blank" rel="noopener">
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <!--
+        Ganti nilai src dengan URL atau path foto kamu.
+        Frame akan menjaga ukuran dan crop gambar tetap rapi.
+      -->
+      <div class="hero-photo">
+        <img src="images/fts.jpg" alt="Foto Dicky Samudra Alamsyah">
+      </div>
+    </header>
+
+    <!-- Bagian tentang latar belakang dan fokus profesional. -->
+    <section id="about">
+      <h2>Tentang</h2>
+      <p class="text">
+        Saya backend developer yang berfokus membangun teknologi untuk pendidikan, dengan latar belakang di dua dunia: teknologi dan pendidikan bahasa. Saya berpengalaman mengembangkan sistem berbasis web, termasuk Si Jerman, platform belajar bahasa Jerman berbasis AI di mana saya berperan sebagai ketua tim sekaligus developer, serta sistem booking (Laravel) dan aplikasi inventaris (Flutter) saat menjadi IT Support dan Project Manager di Malang Creative Center.
+      </p>
+      <p class="text">
+        Saat ini saya memperdalam DevOps lewat Docker dan Google Cloud Skills Boost, dengan langkah berikutnya men-deploy proyek saya sendiri ke cloud, karena saya ingin menjadi developer yang memahami proses secara utuh, dari menulis kode sampai deployment.
+      </p>
+    </section>
+
+    <!-- Riwayat pengalaman kerja memakai komposisi foto kiri dan timeline kanan. -->
+    <section id="work">
+      <h2>Pengalaman</h2>
+      <div class="work-layout">
+        <figure class="experience-visual">
+          <!-- Ganti isi setiap photo-tile dengan <img src="..." alt="..."> saat foto siap. -->
+          <div class="experience-frame" aria-label="Kolase foto kegiatan pengalaman">
+            <div class="photo-tile photo-tile-one" role="button" tabindex="0" aria-label="Perbesar foto pengalaman 1">
+              <img src="images/doc1.JPG" alt="Kegiatan pengalaman kerja pertama">
+              <span class="photo-hover" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" />
+                  <circle cx="12" cy="12" r="2.5" />
+                </svg>
+              </span>
+            </div>
+            <div class="photo-tile photo-tile-two" role="button" tabindex="0" aria-label="Perbesar foto pengalaman 2">
+              <img src="images/to1.jpg" alt="Kegiatan pengalaman kerja kedua">
+              <span class="photo-hover" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" />
+                  <circle cx="12" cy="12" r="2.5" />
+                </svg>
+              </span>
+            </div>
+            <div class="photo-tile photo-tile-three" role="button" tabindex="0" aria-label="Perbesar foto pengalaman 3">
+              <img src="images/MCC03425.JPG" alt="Kegiatan pengalaman kerja kelima">
+              <span class="photo-hover" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" />
+                  <circle cx="12" cy="12" r="2.5" />
+                </svg>
+              </span>
+            </div>
+            <div class="photo-tile photo-tile-four" role="button" tabindex="0" aria-label="Perbesar foto pengalaman 4">
+              <img src="images/fg.jpg" alt="Kegiatan pengalaman kerja keempat">
+              <span class="photo-hover" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" />
+                  <circle cx="12" cy="12" r="2.5" />
+                </svg>
+              </span>
+            </div>
+            <div class="photo-tile photo-tile-five" role="button" tabindex="0" aria-label="Perbesar foto pengalaman 5">
+              <img src="images/kegiatan 4.JPG" alt="Kegiatan pengalaman kerja ketiga">
+              <span class="photo-hover" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" />
+                  <circle cx="12" cy="12" r="2.5" />
+                </svg>
+              </span>
+            </div>
+          </div>
+          <div class="photo-modal" aria-hidden="true">
+            <button class="photo-modal-close" type="button" aria-label="Tutup preview foto">−</button>
+            <img class="photo-modal-image" src="" alt="">
+          </div>
+          <figcaption>Experience archive</figcaption>
+        </figure>
+
+        <div class="experience-content">
+          <div class="timeline">
+            <article class="timeline-item">
+              <div class="when">Jan 2025 – Jun 2025</div>
+              <div class="job">
+                <h3>Intern, MCC Internship Program (Batch 05)</h3>
+                <div class="org">Malang Creative Center</div>
+                <p>
+                  Selama lima bulan mengikuti MCC Internship Program Batch 05 di Malang Creative Center, saya berperan sebagai IT Support yang membagi waktu antara operasional dan pengembangan sistem, lalu di fase akhir dipercaya menjadi Project Manager. Saya melanjutkan pengembangan website booking berbasis Laravel dengan memperbaiki bug tabel booking dan membuat dashboard manajemen, sehingga data booking yang sebelumnya dicatat lewat Excel kini terkelola dalam satu sistem. Saya juga membangun MCC Inventory berbasis Flutter untuk melacak peminjaman barang, memantau stok gudang, dan mencatat kondisi barang yang rusak. 
+                  Dari pengalaman ini, saya belajar memimpin tim, berkomunikasi, dan menyelesaikan masalah di dua platform yang berbeda.
+                </p>
+              </div>
+            </article>
+
+            <article class="timeline-item">
+              <div class="when">Nov 2024 – Nov 2025</div>
+              <div class="job">
+                <h3>Web &amp; Media Team, PDD Committee</h3>
+                <div class="org">Deutsche Tage 2024, Universitas Negeri Malang</div>
+                <p>
+                  Saya terlibat di tim Publikasi, Dokumentasi, dan Desain (PDD) pada Deutsch Tage, acara program studi yang diselenggarakan oleh Himpunan Mahasiswa Sastra Jerman (HMD), Universitas Negeri Malang. 
+                  Saya membuat dan mengelola website informasi acara menggunakan Wix, lalu menjalankan live report dan pembaruan konten secara langsung pada hari-H.
+                </p>
+              </div>
+            </article>
+
+            <article class="timeline-item">
+              <div class="when">May 2020 – Jan 2021</div>
+              <div class="job">
+                <h3>Junior Backend Developer</h3>
+                <div class="org">Sindo Lah PTE LTD · Batu</div>
+                <p>
+                  Saya bekerja sebagai backend developer di sebuah startup kecil di Batu yang membangun platform marketplace tanaman, mempertemukan penjual tanaman dari Batu dengan pembeli di Singapura. Menggunakan PHP (CodeIgniter 3) dan MySQL, saya membangun dan memelihara web app dengan tampilan mobile-first, termasuk fitur CRUD profil pengguna serta ranking penjualan mingguan dan bulanan. 
+                  Fitur ranking ini membantu penjual memahami posisi mereka dalam persaingan dan membuka peluang kolaborasi antarpenjual berdasarkan data penjualan.
+                </p>
+              </div>
+            </article>
+
+            <article class="timeline-item">
+              <div class="when">Dec 2018 – Nov 2019</div>
+              <div class="job">
+                <h3>Backend Developer (Intern)</h3>
+                <div class="org">PT. Aku Peduli Indonesia · Malang</div>
+                <p>
+                  Saya mengikuti magang sebagai developer dalam pembuatan aplikasi point of sale (POS) untuk restoran menggunakan Python dan Django. Di sini saya membantu tim mengerjakan CRUD form pesanan makanan dan minuman untuk kasir, 
+                  serta belajar membangun fitur dashboard bersama tim. Data transaksi dan inventaris dikelola menggunakan MySQL.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Setiap project ditampilkan sebagai card dengan preview detail. -->
+    <section id="projects">
+      <h2>Projects</h2><br>
+
+      <div class="project-grid">
+        <article class="project-card" role="button" tabindex="0" aria-label="Lihat detail project Si Jerman"
+          data-title="Si Jerman"
+          data-summary=""
+          data-description="Si Jerman adalah platform belajar bahasa Jerman berbasis AI yang dirancang untuk pembelajar Indonesia. Saya berperan sebagai ketua tim sekaligus developer, memimpin tim dan membangun platform dengan Next.js yang menyediakan kursus terstruktur level A1 hingga A2 dengan latihan interaktif yang dianalisis otomatis oleh AI sehingga pengguna langsung mendapat umpan balik. Pengguna juga dapat memantau perkembangan belajar lewat dashboard pribadi, mengikuti kuis interaktif, dan berdiskusi dengan sesama pembelajar di forum. Si Jerman telah terdaftar Hak Kekayaan Intelektual (HKI) dan meraih Medali Bronze di Cipta Nusantara Fest 2025, kompetisi business plan tingkat nasional."
+          data-skills="Next.js|Node.js|AI feedback"
+          data-link="https://www.sijerman.com"
+          data-link-label="Kunjungi sijerman.com">
+          <div class="project-image">
+            <img src="images/d1.png" alt="Screenshot halaman project Si Jerman">
+            <span class="project-image-hover" aria-hidden="true"></span>
+          </div>
+          <div class="project-card-content">
+            <h3>Si Jerman</h3>
+            <p>Si Jerman adalah platform belajar bahasa Jerman berbasis AI yang dirancang untuk pembelajar Indonesia.</p>
+          </div>
+        </article>
+
+        <article class="project-card" role="button" tabindex="0" aria-label="Lihat detail project Makers"
+          data-title="Makers"
+          data-summary=""
+          data-description="Mengembangkan website berbasis WordPress untuk mendukung tugas kuliah teman, dengan kebutuhan yang mereka sampaikan sebagai acuan. Website ini menjadi wadah bagi pengguna untuk mengakses dan mengunduh dokumen secara praktis dalam satu tempat. Saya memilih WordPress sebagai solusi yang efisien karena keterbatasan biaya, sekaligus memastikan website tetap mudah dikelola dan digunakan."
+          data-skills="CodeIgniter|PHP|MySQL"
+          data-link="#contact"
+          data-link-label="Hubungi saya">
+          <div class="project-image">
+            <img src="images/makers.png" alt="Dokumentasi project Makers">
+            <span class="project-image-hover" aria-hidden="true"></span>
+          </div>
+          <div class="project-card-content">
+            <h3>Makers</h3>
+            <p>Platform manajemen dokumen untuk kebutuhan partner universitas.</p>
+          </div>
+        </article>
+
+        <article class="project-card" role="button" tabindex="0" aria-label="Lihat detail project MCC Internship Program"
+          data-title="MCC Inventory"
+          data-summary="Kolaborasi pengembangan project digital dalam program magang MCC."
+          data-description="Project kolaboratif yang dikerjakan dalam MCC Internship Program, dengan fokus pada pengelolaan barang dan inventaris untuk peminjaman booking dan pemeliharaan stock barang milik MCC."
+          data-skills="Project management|Team collaboration|Web development"
+          data-link="#work"
+          data-link-label="Lihat pengalaman">
+          <div class="project-image">
+            <div class="project-photo-carousel" data-project-carousel>
+              <div class="project-photo-slide is-active">
+                <img src="images/login.png" alt="Screenshot MCC Inventory">
+              </div>
+              <div class="project-photo-slide">
+                <img src="images/sda.png" alt="Dokumentasi project MCC Inventory">
+              </div>
+              <div class="project-photo-slide">
+                <img src="images/invs.png" alt="Aktivitas pengembangan MCC Inventory">
+              </div>
+            </div>
+            <span class="project-image-hover" aria-hidden="true"></span>
+          </div>
+          <div class="project-card-content">
+            <h3>MCC Inventory</h3>
+            <p>Kolaborasi pengembangan project digital dalam program magang MCC.</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="project-modal" aria-hidden="true">
+        <div class="project-modal-panel" role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
+          <button class="project-modal-close" type="button" aria-label="Tutup detail project">−</button>
+          <div class="project-modal-gallery">
+            <img class="project-modal-image" src="" alt="">
+            <button class="project-modal-gallery-button previous" type="button" aria-label="Foto project sebelumnya" hidden>&#8592;</button>
+            <button class="project-modal-gallery-button next" type="button" aria-label="Foto project berikutnya" hidden>&#8594;</button>
+            <div class="project-modal-gallery-dots" aria-label="Pilih foto project" hidden></div>
+          </div>
+          <div class="project-modal-content">
+            <h3 id="project-modal-title"></h3>
+            <p class="project-modal-summary"></p>
+            <p class="project-modal-description"></p>
+            <h4>Skills</h4>
+            <ul class="tags project-modal-tags"></ul>
+            <a class="btn primary project-modal-link" href="" target="_blank" rel="noopener"></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skill dikelompokkan berdasarkan tingkat penggunaan dan fokus pengembangan. -->
+    <section id="skills">
+      <h2>Keterampilan</h2><br>
+
+      <div class="skill-grid">
+        <article class="skill-card">
+          <div class="skill-card-heading">
+            <div>
+              <span class="skill-status">Core</span>
+              <h3>Backend Development</h3>
+            </div>
+            <span class="skill-icon" aria-hidden="true">&lt;/&gt;</span>
+          </div>
+          <p>Core stack untuk membangun web system, API, dashboard, dan aplikasi berbasis database.</p>
+          <ul class="tags">
+            <li>PHP</li>
+            <li>Laravel</li>
+            <li>CodeIgniter</li>
+            <li>Python</li>
+            <li>Django</li>
+            <li>Node.js</li>
+            <li>MySQL</li>
+          </ul>
+        </article>
+
+        <article class="skill-card">
+          <div class="skill-card-heading">
+            <div>
+              <span class="skill-status">Supporting</span>
+              <h3>Frontend Development</h3>
+            </div>
+            <span class="skill-icon" aria-hidden="true">UI</span>
+          </div>
+          <p>Digunakan untuk membangun interface responsive dan platform pembelajaran interaktif.</p>
+          <ul class="tags">
+            <li>Next.js</li>
+            <li>JavaScript</li>
+            <li>HTML/CSS</li>
+            <li>Wix</li>
+          </ul>
+        </article>
+
+        <article class="skill-card skill-card-learning">
+          <div class="skill-card-heading">
+            <div>
+              <span class="skill-status">Learning</span>
+              <h3>Cloud &amp; DevOps</h3>
+            </div>
+            <span class="skill-icon" aria-hidden="true">↗</span>
+          </div>
+          <p>Fokus pembelajaran saat ini untuk meningkatkan kemampuan deployment dan cloud infrastructure.</p>
+          <ul class="tags">
+            <li>Docker</li>
+            <li>Google Cloud</li>
+          </ul>
+        </article>
+
+        <article class="skill-card">
+          <div class="skill-card-heading">
+            <div>
+              <span class="skill-status">Supporting</span>
+              <h3>Data &amp; Creative Tools</h3>
+            </div>
+            <span class="skill-icon" aria-hidden="true">✦</span>
+          </div>
+          <p>Digunakan untuk visualisasi data, desain pendukung, dan kebutuhan komunikasi visual.</p>
+          <ul class="tags">
+            <li>Power BI</li>
+            <li>Photoshop</li>
+            <li>Illustrator</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- Sertifikat dan paten ditampilkan sebagai card yang dapat dibuka untuk detail. -->
+    <section id="recognition" class="highlight-section">
+
+      <div class="recognition-layout">
+        <div class="recognition-copy">
+          <span class="recognition-type">Certificates</span>
+          <h3>Sertifikat</h3>
+          <p>Dokumentasi sertifikat dan pencapaian yang mendukung perjalanan profesional.</p>
+        </div>
+        <div class="recognition-visual">
+          <div class="recognition-stack">
+            <article class="recognition-photo-card recognition-trigger" 
+            role="button" 
+            tabindex="0" 
+            data-category="certificate" 
+            data-title="Data Visualization using Microsoft Power BI" 
+            data-year="Juli 2025" 
+            data-institution="IBLU ACADEMY" 
+            data-description="Completed a professional training in data visualization using Microsoft Power BI.
+                              Gained hands-on experience in transforming raw data into interactive dashboards and meaningful insights. Learned how to analyze data effectively and present it to support business decision-making.
+                              This certification strengthens my foundation in data analysis and system-oriented thinking, aligning with my interest in system design and business solutions." 
+            data-link="#" 
+            data-link-label="Lihat sertifikat"><img src="images/iblue.png" alt="Certificate 1"></article>
+
+            <article class="recognition-photo-card recognition-trigger" 
+            role="button" 
+            tabindex="0" 
+            data-category="certificate" 
+            data-title="Belajar Dasar Pemrograman JavaScript" 
+            data-year="Januari 2022" 
+            data-institution="Dicoding Indonesia" 
+            data-description="" 
+            data-link="#" 
+            data-link-label="Lihat sertifikat"><img src="images/javas.png" alt="Certificate 2"></article>
+
+            <article class="recognition-photo-card recognition-trigger" 
+            role="button" 
+            tabindex="0" 
+            data-category="certificate" 
+            data-title="Belajar Machine Learning untuk Pemula" 
+            data-year="December 2023" 
+            data-institution="Dicoding Indonesia" 
+            data-description="" 
+            data-link="#" 
+            data-link-label="Lihat sertifikat"><img src="images/mach.png" alt="Certificate 3"></article>
+          </div>
+          <div class="recognition-carousel" data-carousel>
+            <article class="recognition-photo-card recognition-trigger is-active" 
+            role="button" 
+            tabindex="0" 
+            data-category="certificate" 
+            data-title="Dasar-Dasar Dukungan Teknis" 
+            data-year="Januari 2024" 
+            data-institution="Google" 
+            data-description="Earned the Google Technical Support Fundamentals certificate 
+                              through Coursera, mastering core IT skills such as troubleshooting 
+                              hardware and software, managing operating systems, and networking essentials. Developed practical problem-solving and user-support skills to efficiently address technical issues. This certification reflects my foundation in providing reliable technical assistance in professional environments." 
+            data-link="#" 
+            data-link-label="Lihat sertifikat"><img src="images/googles.png" alt="Certificate 2"></article>
+
+            <article class="recognition-photo-card recognition-trigger" 
+            role="button" 
+            tabindex="0" 
+            data-category="certificate" 
+            data-title="Belajar Dasar Git dengan GitHub" 
+            data-year="2021" 
+            data-institution="Dicoding Indonesia" 
+            data-description="" 
+            data-link="#" 
+            data-link-label="Lihat sertifikat"><img src="images/git.png" alt="Certificate 5"></article>
+
+            <button class="recognition-carousel-button previous" type="button" aria-label="Sertifikat sebelumnya">&#8592;</button>
+            <button class="recognition-carousel-button next" type="button" aria-label="Sertifikat berikutnya">&#8594;</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="recognition-layout">
+        <div class="recognition-copy">
+          <span class="recognition-type">HKI</span>
+          <h3>Hak Cipta</h3>
+          <p>Daftar karya dan inovasi yang telah dikembangkan dan didaftarkan sebagai paten.</p>
+        </div>
+        <div class="recognition-visual patent-visual">
+          <div class="recognition-stack">
+            <article class="recognition-photo-card recognition-trigger" 
+            role="button" 
+            tabindex="0" 
+            data-title="Si Jerman - Platform Pembelajaran Online Bahasa Jerman" 
+            data-summary="Si Jerman - Platform Pembelajaran Online Bahasa Jerman" 
+            data-description="Si Jerman adalah platform belajar bahasa Jerman untuk pembelajar Indonesia yang dirancang agar lebih interaktif, cerdas, dan terukur. Platform ini memadukan kecerdasan buatan (AI) dan learning analytics untuk menghadirkan pengalaman belajar yang adaptif dan personal, di mana setiap latihan yang dikerjakan dianalisis otomatis untuk memberi umpan balik yang cepat dan jelas. Pengguna dapat mengikuti materi terstruktur level A1 hingga A2, kuis interaktif, memantau perkembangan kompetensi lewat dashboard pribadi, dan berdiskusi dengan sesama pembelajar di forum. Sebagai ketua tim sekaligus developer, saya memimpin tim dan membangun platform ini dengan Next.js. Si Jerman telah terdaftar Hak Kekayaan Intelektual (HKI) dan meraih Medali Bronze di Cipta Nusantara Fest 2025, kompetisi business plan tingkat nasional." 
+            data-skills="Patent|Intellectual property" 
+            data-link="#" 
+            data-link-label="Lihat paten"><img src="images/hki sijerman.png" alt="Patent 1"></article>
+
+            <article class="recognition-photo-card recognition-trigger" 
+            role="button" 
+            tabindex="0" 
+            data-title="Fitur Open Course Si Jerman" 
+            data-summary="Fitur Open Course Si Jerman" 
+            data-description="Open Course adalah fitur di platform Si Jerman yang membuka akses belajar bahasa Jerman untuk masyarakat umum tanpa harus tergabung dalam institusi, sehingga siapa pun bisa belajar kapan saja dan di mana saja. Fitur ini memperluas akses belajar yang sebelumnya terbatas pada lingkungan kelas, dengan kursus terstruktur level A1 hingga A2 yang disesuaikan dengan kemampuan pengguna. Pengunjung baru dapat melihat pratinjau tiga modul pertama tanpa login, lalu mendaftar untuk mengakses seluruh isi kursus. Setiap kursus dilengkapi halaman silabus yang menampilkan ringkasan materi, daftar modul, dan progres belajar pribadi, serta dapat diakses dari laptop maupun smartphone. Sebagai ketua tim sekaligus developer, saya terlibat dalam pengembangan fitur ini." 
+            data-skills="Patent|Intellectual property" 
+            data-link="#" 
+            data-link-label="Lihat paten"><img src="images/open course.png" alt="Patent 3"></article>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="recognition-modal" aria-hidden="true">
+        <div class="project-modal-panel" role="dialog" aria-modal="true" aria-labelledby="recognition-modal-title">
+          <button class="project-modal-close" type="button" aria-label="Tutup detail recognition">−</button>
+          <img class="project-modal-image" src="" alt="">
+          <div class="project-modal-content">
+            <h3 id="recognition-modal-title"></h3>
+            <p class="recognition-modal-year"></p>
+            <p class="recognition-modal-institution"></p>
+            <p class="project-modal-description"></p>
+            <a class="btn primary project-modal-link" href=""></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer menjadi ajakan terakhir untuk menghubungi pemilik portofolio. -->
+    <footer id="contact">
+      <h2>Ayo terhubung bersama</h2>
+      <p>Terbuka untuk kolaborasi dan peluang kerja.</p>
+      <div class="contact-buttons">
+        <a class="contact-btn contact-email" href="mailto:dickyalamsyah0901@gmail.com">
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M3 5h18v14H3zM3 6l9 7 9-7" />
+          </svg>
+          Email
+        </a>
+        <a class="contact-btn contact-linkedin" href="https://www.linkedin.com/in/dicky-samudra-alamsyah" target="_blank" rel="noopener">
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M5 8v11M5 5.5v.1M10 19v-6a4 4 0 0 1 8 0v6M10 10v9" />
+          </svg>
+          LinkedIn
+        </a>
+        <a class="contact-btn contact-instagram" href="https://www.instagram.com/dickya__?dlrf=M2lxc2Z0dDZkMHdv" target="_blank" rel="noopener">
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="5" />
+            <circle cx="12" cy="12" r="4" />
+            <circle cx="17.5" cy="6.5" r="1" class="contact-icon-fill" />
+          </svg>
+          Instagram
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- JavaScript dimuat terakhir agar struktur HTML selesai dibaca lebih dahulu. -->
+  <script src="script.js"></script>
+</body>
+</html>
