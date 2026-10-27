@@ -113,6 +113,10 @@ body {
   background: var(--bg);
   color: var(--ink);
   font: 400 17px/1.65 "Roboto", system-ui, sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  overscroll-behavior: none;
 }
 
 h1, h2, h3 {
@@ -147,9 +151,11 @@ button:focus-visible {
 .site-nav {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 20px 0;
+  flex-wrap: nowrap;
+  gap: 16px;
+  padding: 16px 0;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--line);
   color: var(--muted);
   font-size: 15px;
   transition: opacity 0.2s, transform 0.2s;
@@ -161,7 +167,9 @@ button:focus-visible {
 }
 
 .site-nav a {
+  flex: 0 0 auto;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .site-nav a:hover,
@@ -216,6 +224,7 @@ button:focus-visible {
   z-index: 10;
   top: 50%;
   left: 20px;
+  width: max-content;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -224,6 +233,7 @@ button:focus-visible {
   border-radius: 12px;
   background: linear-gradient(135deg, var(--card-bg), var(--support-soft));
   box-shadow: 0 12px 30px rgb(0 0 0 / 0.12);
+  overflow: visible;
   transform: translateY(-50%);
   transition: opacity 0.25s ease;
   animation: nav-fade-in 0.25s ease both;
@@ -347,6 +357,56 @@ button:focus-visible {
     rgb(0 0 0 / 0.92) 68%,
     transparent 100%
   );
+}
+
+.hero-stats {
+  overflow-x: auto;
+  margin: 0 0 8px;
+  border-top: 1px solid var(--line);
+  scrollbar-width: none;
+}
+
+.hero-stats::-webkit-scrollbar {
+  display: none;
+}
+
+.hero-stats-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  min-width: 100%;
+  margin: 0;
+  padding: 18px 8px;
+  list-style: none;
+}
+
+.hero-stat {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.hero-stat + .hero-stat {
+  margin-left: 22px;
+}
+
+.hero-stat + .hero-stat::before {
+  content: "·";
+  margin-right: 22px;
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
+.hero-stat strong {
+  color: var(--heading);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .screenshot-placeholder img {
@@ -752,6 +812,12 @@ h2 {
   overflow: hidden;
 }
 
+.hero .btns {
+  grid-column: 1;
+  grid-row: 2;
+  justify-content: flex-start;
+}
+
 .experience-description-fade {
   position: absolute;
   right: 0;
@@ -783,8 +849,23 @@ h2 {
 
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-areas:
+    "featured featured"
+    "makers mcc";
   gap: 20px;
+}
+
+.project-card-featured {
+  grid-area: featured;
+}
+
+.project-card-makers {
+  grid-area: makers;
+}
+
+.project-card-mcc {
+  grid-area: mcc;
 }
 
 .project-card {
@@ -814,11 +895,25 @@ h2 {
   background: #111315;
 }
 
+.project-card-featured .project-image {
+  height: 360px;
+}
+
 .project-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.35s ease;
+}
+
+.project-card:not(.project-card-featured) .project-image img {
+  object-fit: contain;
+}
+
+.project-card:not(.project-card-featured) .project-image {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.04);
 }
 
 .project-photo-carousel,
@@ -933,7 +1028,6 @@ h2 {
 }
 
 .project-card-content {
-  min-height: 150px;
   padding: 20px;
 }
 
@@ -945,6 +1039,47 @@ h2 {
 .project-card p {
   margin: 0;
   color: var(--muted);
+}
+
+.project-card-description-preview-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card-description-fade {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1.6em;
+  background: linear-gradient(to bottom, rgb(8 9 9 / 0), var(--card-bg) 92%);
+  pointer-events: none;
+}
+
+.project-card-description-full[hidden],
+.project-card-description-preview-wrapper[hidden] {
+  display: none;
+}
+
+.project-card .project-card-description-full {
+  color: var(--muted);
+}
+
+.project-card .read-more {
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+.project-card-tags {
+  margin-top: 16px;
+}
+
+.project-card-tags li {
+  padding: 3px 10px;
+  border-color: rgb(255 255 255 / 0.18);
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
 }
 
 .project-modal {
@@ -968,7 +1103,7 @@ h2 {
 .project-modal-panel {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(260px, 0.95fr) minmax(0, 1.05fr);
+  grid-template-columns: 1fr;
   width: min(900px, 100%);
   max-height: min(720px, 90vh);
   overflow: auto;
@@ -1053,6 +1188,10 @@ h2 {
 
 @media (max-width: 900px) and (min-width: 641px) {
   .project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .certificate-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1202,6 +1341,44 @@ h2 {
   color: var(--heading);
 }
 
+.highlight-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.recognition-intro {
+  order: 1;
+  max-width: 720px;
+  margin-bottom: 4px;
+}
+
+.recognition-intro h2 {
+  margin: 8px 0 0;
+}
+
+.recognition-intro p {
+  max-width: 62ch;
+  margin: 0;
+  color: var(--muted);
+}
+
+.recognition-layout.award-layout {
+  order: 2;
+  margin-top: 8px;
+}
+
+.copyright-layout {
+  order: 3;
+}
+
+.certificate-layout {
+  order: 4;
+}
+
+.recognition-modal {
+  order: 5;
+}
+
 .recognition-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1300,12 +1477,22 @@ h2 {
 
 .recognition-layout {
   display: grid;
-  grid-template-columns: minmax(220px, 0.72fr) minmax(0, 1.28fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: center;
   gap: clamp(40px, 7vw, 96px);
   min-height: 360px;
   margin: 48px 0 72px;
 }
+
+.award-layout .recognition-visual {
+  order: 1;
+}
+
+.award-layout .recognition-copy {
+  order: 2;
+}
+
+
 
 .recognition-layout-reverse .recognition-copy {
   order: 2;
@@ -1324,6 +1511,163 @@ h2 {
 .recognition-copy p {
   max-width: 34ch;
   color: var(--muted);
+}
+
+.recognition-layout .award-description p {
+  max-width: none;
+  text-align: justify;
+}
+
+.recognition-layout.copyright-layout {
+  display: block;
+  min-height: 0;
+  margin-bottom: 8px;
+}
+
+.recognition-layout.award-layout {
+  margin-bottom: 8px;
+}
+
+.recognition-layout.copyright-layout {
+  margin-top: 8px;
+}
+
+.recognition-layout.certificate-layout {
+  margin-top: 8px;
+}
+
+.certificate-layout {
+  display: block;
+  min-height: 0;
+  margin-bottom: 56px;
+}
+
+.certificate-layout > .recognition-copy {
+  margin-bottom: 24px;
+}
+
+.certificate-layout > .recognition-copy p {
+  max-width: 62ch;
+}
+
+.certificate-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.certificate-grid .recognition-photo-card {
+  height: 300px;
+}
+
+.certificate-grid .recognition-photo-card img {
+  padding: 14px;
+}
+
+.certificate-placeholder {
+  border: 1px dashed var(--muted);
+  color: var(--muted);
+  text-align: center;
+}
+
+.certificate-placeholder img {
+  opacity: 0.22;
+}
+
+.certificate-placeholder span {
+  position: absolute;
+  inset: 50% 0 auto;
+  max-width: 16ch;
+  padding: 20px;
+  transform: translateY(-50%);
+}
+
+.copyright-layout > .recognition-copy {
+  margin-bottom: 24px;
+}
+
+.copyright-layout > .recognition-copy p {
+  max-width: 62ch;
+}
+
+.copyright-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.copyright-card {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.62fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 36px;
+  min-height: 310px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card-bg);
+  color: var(--card-ink);
+  cursor: pointer;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.copyright-card:hover,
+.copyright-card:focus-visible {
+  border-color: var(--accent-strong);
+  box-shadow: 0 12px 24px rgb(0 0 0 / 0.16);
+  transform: translateY(-3px);
+}
+
+.copyright-card:focus-visible {
+  outline: 3px solid var(--accent-strong);
+  outline-offset: 3px;
+}
+
+.copyright-card-frame {
+  display: grid;
+  place-items: center;
+  height: 270px;
+  overflow: hidden;
+  border: 1px solid var(--muted);
+  background: var(--surface);
+}
+
+.copyright-card-frame img {
+  width: 100%;
+  height: 100%;
+  padding: 6px;
+  object-fit: contain;
+}
+
+.copyright-card-content h4 {
+  max-width: 22ch;
+  margin: 0 0 8px;
+  margin-left: 12px;
+  color: var(--heading);
+  font-size: 19px;
+  line-height: 1.25;
+}
+
+.copyright-card-content p,
+.copyright-card-meta,
+.copyright-card-date,
+.copyright-card-link {
+  display: block;
+  max-width: 24ch;
+  margin: 0;
+  margin-left: 12px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.copyright-card-meta {
+  margin-top: 10px;
+}
+
+.copyright-card-link {
+  margin-top: 8px;
+  color: var(--accent-strong);
 }
 
 .recognition-visual {
@@ -1351,6 +1695,51 @@ h2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-template-rows: 1fr;
   height: 360px;
+}
+
+.award-visual {
+  display: block;
+}
+
+.award-carousel {
+  position: relative;
+  height: 360px;
+  min-height: 360px;
+  border-radius: 10px;
+  height: 360px;
+}
+
+.award-carousel .recognition-carousel-button {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+
+.award-carousel:hover .recognition-carousel-button,
+.award-carousel:focus-within .recognition-carousel-button {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.award-carousel .recognition-photo-card img {
+  padding: 0;
+  object-fit: cover;
+}
+
+@keyframes recognition-slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(12%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.award-carousel .recognition-photo-card.is-active {
+  animation: recognition-slide-right 0.45s ease both;
 }
 
 .recognition-photo-card {
@@ -1403,6 +1792,63 @@ h2 {
   object-fit: contain;
 }
 
+.recognition-zoom-controls {
+  display: none;
+}
+
+.recognition-modal.copyright-modal .project-modal-panel {
+  display: block;
+  width: min(760px, 100%);
+  max-height: 90vh;
+  overflow: hidden;
+}
+
+.recognition-modal.copyright-modal .project-modal-image {
+  display: block;
+  width: 100%;
+  height: min(78vh, 760px);
+  min-height: 0;
+  object-fit: contain;
+  transform-origin: center;
+  transition: transform 0.2s ease;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.recognition-modal.copyright-modal .project-modal-image.is-dragging {
+  cursor: grabbing;
+  transition: none;
+}
+
+.recognition-modal.copyright-modal .project-modal-content {
+  display: none;
+}
+
+.recognition-modal.copyright-modal .recognition-zoom-controls {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  z-index: 2;
+  display: flex;
+  gap: 8px;
+}
+
+.recognition-zoom-controls button {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgb(255 255 255 / 0.45);
+  border-radius: 50%;
+  background: rgb(0 0 0 / 0.7);
+  color: #fff;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+}
+
 .recognition-carousel {
   position: relative;
   height: 360px;
@@ -1420,6 +1866,10 @@ h2 {
 .recognition-carousel .recognition-photo-card.is-active {
   display: block;
   animation: screenshot-fade 0.35s ease;
+}
+
+.recognition-carousel.award-carousel .recognition-photo-card.is-active {
+  animation: recognition-slide-right 0.45s ease both;
 }
 
 .recognition-carousel-button {
@@ -1597,6 +2047,15 @@ footer p {
     gap: 32px;
   }
 
+  .hero-content {
+    text-align: center;
+  }
+
+  .hero p {
+    margin-right: auto;
+    margin-left: auto;
+  }
+
   .hero-photo {
     max-width: 320px;
     justify-self: center;
@@ -1632,20 +2091,107 @@ footer p {
 
   .hero {
     padding-top: 32px;
+    padding-bottom: 24px;
+  }
+
+  .hero-stats {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .hero-stats-list {
+    justify-content: center;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .site-nav {
+    gap: 14px;
   }
 
   .site-nav.is-compact {
-    left: 10px;
+    top: 10px;
+    right: auto;
+    left: 50%;
+    width: max-content;
+    max-width: none;
+    flex-direction: row;
+    justify-content: center;
+    gap: 4px;
+    padding: 6px;
+    border-radius: 999px;
+    transform: translateX(-50%);
   }
 
   .site-nav.is-compact a,
   .site-nav.is-compact button {
-    width: 38px;
-    height: 38px;
+    width: 34px;
+    height: 34px;
+    flex-basis: 34px;
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+  }
+
+  .site-nav.is-compact a:focus:not(:focus-visible),
+  .site-nav.is-compact button:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  .site-nav.is-compact a span,
+  .site-nav.is-compact button span {
+    display: none;
+  }
+
+  .site-nav.is-compact a:hover,
+  .site-nav.is-compact button:hover {
+    background: transparent;
+    color: inherit;
+  }
+
+  .site-nav.is-compact a.active:hover {
+    background: var(--bg);
+    color: var(--accent);
+  }
+
+  .hero .btns {
+    grid-column: 1;
+    grid-row: auto;
+    justify-content: center;
+  }
+
+  .copyright-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .copyright-card {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    min-height: 0;
+  }
+
+  .copyright-card-frame {
+    width: min(100%, 300px);
+    justify-self: center;
+  }
+
+  .copyright-card-content {
+    margin-left: 0;
+  }
+
+  .recognition-layout.certificate-layout {
+    margin-bottom: 24px;
   }
 
   .project-grid {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "featured"
+      "makers"
+      "mcc";
+  }
+
+  .project-card-featured .project-image {
+    height: 260px;
   }
 
   .skill-grid {
@@ -1654,6 +2200,18 @@ footer p {
 
   .recognition-grid {
     grid-template-columns: 1fr;
+  }
+
+  .copyright-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .certificate-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .certificate-grid .recognition-photo-card {
+    height: 280px;
   }
 
   .recognition-layout {
@@ -1684,6 +2242,17 @@ footer p {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: 1fr;
     height: 260px;
+  }
+
+  .award-visual .recognition-stack {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    height: 260px;
+  }
+
+  .award-carousel {
+    height: 260px;
+    min-height: 260px;
   }
 
   .recognition-carousel {
