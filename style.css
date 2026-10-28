@@ -316,6 +316,31 @@ button:focus-visible {
   padding: 56px 0 72px;
 }
 
+@media (min-width: 641px) {
+  .hero {
+    grid-template-rows: auto auto;
+    column-gap: 56px;
+    row-gap: 24px;
+  }
+
+  .hero-content {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: end;
+  }
+
+  .hero .btns {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: start;
+  }
+
+  .hero-photo {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+}
+
 .hero-content {
   min-width: 0;
 }
@@ -795,9 +820,18 @@ h2 {
   margin: 2px 0 8px;
 }
 
-.job p {
+.job .experience-description {
   max-width: 62ch;
   margin: 0;
+}
+
+.experience-description ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.experience-description li + li {
+  margin-top: 8px;
 }
 
 .experience-description-full[hidden],
@@ -810,6 +844,10 @@ h2 {
   display: block;
   max-width: 100%;
   overflow: hidden;
+}
+
+.experience-description-preview {
+  margin: 0;
 }
 
 .hero .btns {
@@ -1082,6 +1120,29 @@ h2 {
   font-size: 13px;
 }
 
+.project-card-tags .project-status {
+  position: relative;
+  margin-left: 18px;
+  display: inline-flex;
+  align-items: center;
+  border-color: var(--accent-strong);
+  background: var(--accent-strong);
+  color: #fff;
+  font-weight: 500;
+}
+
+.project-card-tags .project-status::before {
+  position: absolute;
+  top: 50%;
+  left: -19px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ink);
+  content: "";
+  transform: translateY(-50%);
+}
+
 .project-modal {
   position: fixed;
   inset: 0;
@@ -1162,6 +1223,30 @@ h2 {
 
 .project-modal-description {
   color: var(--muted);
+}
+
+.project-modal-description p {
+  margin: 0 0 16px;
+}
+
+.project-modal-description h4 {
+  margin: 20px 0 10px;
+  color: var(--muted);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.project-modal-description h4:first-child {
+  margin-top: 0;
+}
+
+.project-modal-description ul {
+  margin: 0 0 18px;
+  padding-left: 28px;
+}
+
+.project-modal-description li + li {
+  margin-top: 6px;
 }
 
 .project-modal-link {
@@ -1628,14 +1713,14 @@ h2 {
   place-items: center;
   height: 270px;
   overflow: hidden;
-  border: 1px solid var(--muted);
-  background: var(--surface);
+  border: 0;
+  background: transparent;
 }
 
 .copyright-card-frame img {
   width: 100%;
   height: 100%;
-  padding: 6px;
+  padding: 0;
   object-fit: contain;
 }
 

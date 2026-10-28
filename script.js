@@ -245,31 +245,53 @@
     Deskripsi dibatasi 35 kata agar timeline tetap ringkas, lalu dapat dibuka
     penuh melalui tombol Baca selengkapnya.
   */
-  var experienceDescriptions = document.querySelectorAll('.timeline-item .job p');
+  var experienceDescriptions = document.querySelectorAll('.timeline-item .job .experience-description');
   var experienceWordLimit = 35;
 
   experienceDescriptions.forEach(function (description) {
-    var fullText = description.textContent.trim().replace(/\s+/g, ' ');
+    var listItems = Array.from(description.querySelectorAll(':scope > ul > li'));
+    var fullText = listItems
+      .map(function (item) { return item.textContent.trim().replace(/\s+/g, ' '); })
+      .join(' ');
     var words = fullText.split(' ');
 
     if (words.length <= experienceWordLimit) {
       return;
     }
 
-    var preview = words.slice(0, experienceWordLimit).join(' ');
+    var remainingWords = experienceWordLimit;
+    var previewItems = listItems.map(function (item) {
+      if (remainingWords <= 0) {
+        return null;
+      }
+
+      var itemWords = item.textContent.trim().replace(/\s+/g, ' ').split(' ');
+      var previewWords = itemWords.slice(0, remainingWords);
+      remainingWords -= previewWords.length;
+      return previewWords.join(' ');
+    }).filter(Boolean);
     var previewWrapper = document.createElement('span');
-    var previewText = document.createElement('span');
+    var previewText = document.createElement('ul');
     var previewFade = document.createElement('span');
-    var fullTextElement = document.createElement('span');
+    var fullTextElement = document.createElement('ul');
     var readMore = document.createElement('button');
 
     previewWrapper.className = 'experience-description-preview-wrapper';
     previewText.className = 'experience-description-preview';
-    previewText.textContent = preview;
+    previewText.replaceChildren();
+    previewItems.forEach(function (itemText) {
+      var item = document.createElement('li');
+      item.textContent = itemText;
+      previewText.append(item);
+    });
     previewFade.className = 'experience-description-fade';
     previewFade.setAttribute('aria-hidden', 'true');
     fullTextElement.className = 'experience-description-full';
-    fullTextElement.textContent = ' ' + fullText;
+    listItems.forEach(function (sourceItem) {
+      var item = document.createElement('li');
+      item.textContent = sourceItem.textContent.trim().replace(/\s+/g, ' ');
+      fullTextElement.append(item);
+    });
     fullTextElement.hidden = true;
     readMore.className = 'read-more';
     readMore.type = 'button';
@@ -423,9 +445,55 @@
       }
     }
 
+    function renderProjectDescription(description) {
+      projectModalDescription.replaceChildren();
+      var lines = description.split('\n').map(function (line) {
+        return line.trim();
+      }).filter(Boolean);
+      var currentList = null;
+
+      lines.forEach(function (line) {
+        var labeledParagraph = line.match(/^(Tentang):\s*(.+)$/);
+        if (labeledParagraph) {
+          var paragraphHeading = document.createElement('h4');
+          paragraphHeading.textContent = labeledParagraph[1];
+          projectModalDescription.append(paragraphHeading);
+          var labeledText = document.createElement('p');
+          labeledText.textContent = labeledParagraph[2];
+          projectModalDescription.append(labeledText);
+          currentList = null;
+          return;
+        }
+
+        if (line.endsWith(':')) {
+          var heading = document.createElement('h4');
+          heading.textContent = line.slice(0, -1);
+          projectModalDescription.append(heading);
+          currentList = null;
+          return;
+        }
+
+        if (line.startsWith('- ')) {
+          if (!currentList) {
+            currentList = document.createElement('ul');
+            projectModalDescription.append(currentList);
+          }
+          var item = document.createElement('li');
+          item.textContent = line.slice(2);
+          currentList.append(item);
+          return;
+        }
+
+        var paragraph = document.createElement('p');
+        paragraph.textContent = line;
+        projectModalDescription.append(paragraph);
+        currentList = null;
+      });
+    }
+
     function openProjectModal(card) {
       projectModalTitle.textContent = card.dataset.title;
-      projectModalDescription.textContent = card.dataset.description;
+      renderProjectDescription(card.dataset.description);
       lastProjectTrigger = card;
       projectModal.classList.add('is-open');
       projectModal.setAttribute('aria-hidden', 'false');
