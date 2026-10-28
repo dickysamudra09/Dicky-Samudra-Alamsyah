@@ -1253,6 +1253,49 @@ h2 {
   margin-top: 26px;
 }
 
+.recognition-modal.certificate-modal .project-modal-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  column-gap: 24px;
+}
+
+.recognition-modal.certificate-modal .project-modal-content h3,
+.recognition-modal.certificate-modal .project-modal-content .recognition-modal-year {
+  grid-column: 1 / -1;
+}
+
+.recognition-modal.certificate-modal .project-modal-content .recognition-modal-institution {
+  grid-column: 1;
+  grid-row: 4;
+  margin-bottom: 0;
+}
+
+.recognition-modal.certificate-modal .project-modal-content .project-modal-description {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  margin-bottom: 18px;
+}
+
+.recognition-modal.certificate-modal .project-modal-content .project-modal-link {
+  grid-column: 2;
+  grid-row: 4;
+  margin-top: 0;
+}
+
+@media (max-width: 640px) {
+  .recognition-modal.certificate-modal .project-modal-content {
+    grid-template-columns: 1fr;
+  }
+
+  .recognition-modal.certificate-modal .project-modal-content .project-modal-link {
+    grid-column: 1;
+    grid-row: 5;
+    justify-self: start;
+    margin-top: 18px;
+  }
+}
+
 .project-modal-close {
   position: absolute;
   top: 12px;

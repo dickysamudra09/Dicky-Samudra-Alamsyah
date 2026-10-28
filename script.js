@@ -628,6 +628,7 @@
       recognitionLink.href = card.dataset.link;
       recognitionLink.textContent = card.dataset.linkLabel;
       recognitionModal.classList.toggle('copyright-modal', isCopyright);
+      recognitionModal.classList.toggle('certificate-modal', card.dataset.category === 'certificate');
       lastRecognitionTrigger = card;
       recognitionModal.classList.add('is-open');
       recognitionModal.setAttribute('aria-hidden', 'false');
