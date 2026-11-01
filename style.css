@@ -3,7 +3,7 @@
   1. Variabel dan tema warna
   =========================
   Variabel CSS ditulis sekali di :root lalu dipakai ulang dengan var(...).
-  Palet utama menggunakan charcoal untuk dasar dan oxblood untuk seluruh aksen.
+  Palet utama menggunakan charcoal untuk dasar dan orange untuk highlight.
   Dengan cara ini, warna dapat diganti dari satu tempat.
 */
 :root {
@@ -17,8 +17,8 @@
   --accent-ink: #111315;
   --support: #963b3b;
   --support-soft: #432326;
-  --highlight: #963b3b;
-  --highlight-soft: #432326;
+  --highlight: #f97316;
+  --highlight-soft: #431f0e;
   --heading: #f4eeee;
   --card-bg: #080909;
   --card-border: #d8d8d8;
@@ -42,8 +42,8 @@
     --accent-ink: #111315;
     --support: #b85c5c;
     --support-soft: #4a292c;
-    --highlight: #b85c5c;
-    --highlight-soft: #4a292c;
+    --highlight: #fb923c;
+    --highlight-soft: #4a2918;
     --heading: #f4eeee;
     --card-bg: #080909;
     --card-border: #d8d8d8;
@@ -64,8 +64,8 @@
   --accent-ink: #111315;
   --support: #b85c5c;
   --support-soft: #4a292c;
-  --highlight: #b85c5c;
-  --highlight-soft: #4a292c;
+  --highlight: #fb923c;
+  --highlight-soft: #4a2918;
   --heading: #f4eeee;
   --card-bg: #080909;
   --card-border: #d8d8d8;
@@ -85,8 +85,8 @@
   --accent-ink: #ffffff;
   --support: #963b3b;
   --support-soft: #f0dddd;
-  --highlight: #963b3b;
-  --highlight-soft: #f0dddd;
+  --highlight: #ea580c;
+  --highlight-soft: #ffedd5;
   --heading: #7f1d1d;
   --card-bg: #080909;
   --card-border: #d8d8d8;
@@ -113,10 +113,17 @@ body {
   background: var(--bg);
   color: var(--ink);
   font: 400 17px/1.65 "Roboto", system-ui, sans-serif;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
   overscroll-behavior: none;
+}
+
+::selection {
+  background: var(--highlight);
+  color: var(--accent-ink);
+}
+
+::-moz-selection {
+  background: var(--highlight);
+  color: var(--accent-ink);
 }
 
 h1, h2, h3 {
@@ -1463,8 +1470,11 @@ h2 {
   background: var(--support-soft);
 }
 
-/* Oxblood menandai bagian Recognition tanpa mendominasi seluruh halaman. */
-.highlight-section h2,
+/* Orange menandai bagian Recognition tanpa mendominasi seluruh halaman. */
+.highlight-section h2 {
+  color: var(--highlight);
+}
+
 .highlight-section h3 {
   color: var(--heading);
 }
