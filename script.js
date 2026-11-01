@@ -5,6 +5,7 @@
   */
   var root = document.documentElement;
   var toggle = document.getElementById('theme-toggle');
+  root.classList.add('js-ready');
 
   document.addEventListener(
     'keydown',
@@ -241,7 +242,43 @@
   }
 
   /*
-    7. Ringkasan deskripsi pengalaman
+    7. Reveal section dan card
+    Elemen diberi jeda kecil berdasarkan urutannya agar halaman terasa
+    mengalir tanpa membuat seluruh section bergerak bersamaan.
+  */
+  var revealItems = document.querySelectorAll(
+    'section > h2, section > .gloss, #about .text, .project-card, .skill-card, .recognition-layout, footer > *'
+  );
+
+  revealItems.forEach(function (item, index) {
+    item.classList.add('reveal-item');
+    item.style.setProperty('--reveal-delay', (index % 4) * 80 + 'ms');
+  });
+
+  if ('IntersectionObserver' in window) {
+    var revealObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+    );
+
+    revealItems.forEach(function (item) {
+      revealObserver.observe(item);
+    });
+  } else {
+    revealItems.forEach(function (item) {
+      item.classList.add('is-visible');
+    });
+  }
+
+  /*
+    8. Ringkasan deskripsi pengalaman
     Deskripsi dibatasi 35 kata agar timeline tetap ringkas, lalu dapat dibuka
     penuh melalui tombol Baca selengkapnya.
   */
