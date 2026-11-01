@@ -3,7 +3,7 @@
   1. Variabel dan tema warna
   =========================
   Variabel CSS ditulis sekali di :root lalu dipakai ulang dengan var(...).
-  Palet utama menggunakan charcoal untuk dasar dan orange untuk highlight.
+  Palet utama menggunakan charcoal untuk dasar dan warna primer untuk highlight.
   Dengan cara ini, warna dapat diganti dari satu tempat.
 */
 :root {
@@ -17,8 +17,8 @@
   --accent-ink: #111315;
   --support: #963b3b;
   --support-soft: #432326;
-  --highlight: #f97316;
-  --highlight-soft: #431f0e;
+  --highlight: var(--accent);
+  --highlight-soft: var(--support-soft);
   --heading: #f4eeee;
   --card-bg: #080909;
   --card-border: #d8d8d8;
@@ -91,8 +91,8 @@
     --accent-ink: #111315;
     --support: #b85c5c;
     --support-soft: #4a292c;
-    --highlight: #fb923c;
-    --highlight-soft: #4a2918;
+    --highlight: var(--accent);
+    --highlight-soft: var(--support-soft);
     --heading: #f4eeee;
     --card-bg: #080909;
     --card-border: #d8d8d8;
@@ -113,8 +113,8 @@
   --accent-ink: #111315;
   --support: #b85c5c;
   --support-soft: #4a292c;
-  --highlight: #fb923c;
-  --highlight-soft: #4a2918;
+  --highlight: var(--accent);
+  --highlight-soft: var(--support-soft);
   --heading: #f4eeee;
   --card-bg: #080909;
   --card-border: #d8d8d8;
@@ -134,8 +134,8 @@
   --accent-ink: #ffffff;
   --support: #963b3b;
   --support-soft: #f0dddd;
-  --highlight: #ea580c;
-  --highlight-soft: #ffedd5;
+  --highlight: var(--accent);
+  --highlight-soft: var(--support-soft);
   --heading: #7f1d1d;
   --card-bg: #080909;
   --card-border: #d8d8d8;
@@ -1525,7 +1525,7 @@ h2 {
   background: var(--support-soft);
 }
 
-/* Orange menandai bagian Recognition tanpa mendominasi seluruh halaman. */
+/* Warna primer menandai bagian Recognition tanpa mendominasi seluruh halaman. */
 .highlight-section h2 {
   color: var(--highlight);
 }
